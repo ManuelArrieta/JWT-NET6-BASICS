@@ -1,2 +1,2 @@
-# JWT-NET6-BASICS
-En este repositorio encontrara un paso a paso la implementacion de JWT(Json Web Token) para .NET6 + Swagger
+# JWT-NET6-BASICS (GENERIC JWT)
+En este repositorio encontrara un paso a paso la implementacion de JWT(Json Web Token) Generico para .NET6 + Swagger
