@@ -29,10 +29,7 @@ namespace JWT_BASICS.Controllers
         public ActionResult<string> loginwithoutclaims(string userId, string password)
         {
             if(this.AuthenticateUser(userId, password))
-            {
-                Dictionary<string,object> claims = new Dictionary<string, object>();
-                claims.Add(userId, password);
-
+            {               
                 return Ok(ijwt_.GenerateToken());
             }
             else
