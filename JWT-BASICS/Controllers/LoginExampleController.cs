@@ -43,7 +43,8 @@ namespace JWT_BASICS.Controllers
         public ActionResult<string> loginwithclaims(string userId, string password, Dictionary<string, object> claims)
         {
             if (this.AuthenticateUser(userId, password))
-            {                                
+            {
+                claims.Add("Admin",true);                    
                 return Ok(ijwt_.GenerateToken(claims));
             }
             else
@@ -57,6 +58,12 @@ namespace JWT_BASICS.Controllers
         public ActionResult authexample()
         {
             return Ok("Metodo publico de ejemplo");
+        }
+        [Authorize(Policy = "Admin")]
+        [HttpGet("authexampleAdmin")]
+        public ActionResult authexampleAdmin()
+        {
+            return Ok("Metodo publico solo para administradores!");
         }
 
         private bool AuthenticateUser(string userId, string password)

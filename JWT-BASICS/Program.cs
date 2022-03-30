@@ -13,8 +13,25 @@ builder.Services.AddTransient<IJWT, JWT>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
+builder.Services.AddCors(
+    opciones => 
+    {
+        opciones.AddDefaultPolicy(
+            policy => 
+            {
+                policy.AllowAnyOrigin();
+            }
+        ); 
+    }
+);
+
 builder.Services.AddHttpContextAccessor()
-                .AddAuthorization()
+                .AddAuthorization(
+                    opciones => 
+                    {
+                        opciones.AddPolicy("Admin", politica => politica.RequireClaim("Admin"));
+                    }
+                )
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(option =>
                 {
