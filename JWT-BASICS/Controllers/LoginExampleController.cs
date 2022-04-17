@@ -3,6 +3,7 @@ using JWT_BASICS.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace JWT_BASICS.Controllers
 {
@@ -26,22 +27,49 @@ namespace JWT_BASICS.Controllers
 
         [AllowAnonymous]
         [HttpGet("loginwithoutclaims")]
-        public ActionResult<string> loginwithoutclaims(string userId, string password)
+        public ResponseAuthentication loginwithoutclaims(string userId, string password)
         {
-            if(this.AuthenticateUser(userId, password))
-            {               
-                return Ok(ijwt_.GenerateToken());
-            }
-            else
+            ResponseAuthentication response ;
+            try
             {
-                return BadRequest();
+                if (this.AuthenticateUser(userId, password))
+                {                    
+                    response = new ResponseAuthentication()
+                    {
+                        Token = ijwt_.GenerateToken(),
+                        HttpStatusCode = ((int)HttpStatusCode.OK),
+                        HttpStatusTitle = HttpStatusCode.OK.ToString()
+                    }; 
+                    Console.WriteLine("paso");
+                }
+                else
+                {
+                    response = new ResponseAuthentication()
+                    {
+                        Token = "",
+                        HttpStatusCode = ((int)HttpStatusCode.Unauthorized),
+                        HttpStatusTitle = HttpStatusCode.Unauthorized.ToString()
+                    };
+                    Console.WriteLine("no paso");
+                }
             }
+            catch (Exception ex)
+            {                
+                response = new ResponseAuthentication()
+                {
+                    Token = "",
+                    HttpStatusCode = ((int)HttpStatusCode.BadRequest),
+                    HttpStatusTitle = HttpStatusCode.BadRequest.ToString()
+                };
+            }  
+            return response;
         }
 
         [AllowAnonymous]
         [HttpPost("loginwithclaims")]
         public ActionResult<string> loginwithclaims(string userId, string password, Dictionary<string, object> claims)
         {
+
             if (this.AuthenticateUser(userId, password))
             {
                 claims.Add("Admin",true);                    
@@ -59,6 +87,7 @@ namespace JWT_BASICS.Controllers
         {
             return Ok("Metodo publico de ejemplo");
         }
+        
         [Authorize(Policy = "Admin")]
         [HttpGet("authexampleAdmin")]
         public ActionResult authexampleAdmin()
