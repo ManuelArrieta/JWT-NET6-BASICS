@@ -15,8 +15,8 @@ namespace JWT_BASICS.Controllers
 
         private List<User> UsersList = new List<User>()
         {
-            new User(){UserId = "1" ,UserName="Usuario 1", Email="usuario1@gmail.com", Password="1"},
-            new User(){UserId = "2" ,UserName="Usuario 2", Email="usuario2@gmail.com", Password="2"}
+            new User(){UserId = "1" ,UserName="Usuario 1", Email="usuario1@gmail.com", Password="1", rol = "Administrador"},
+            new User(){UserId = "2" ,UserName="Usuario 2", Email="usuario2@gmail.com", Password="2", rol = "Operario"}
         };        
 
         public LoginExampleController(IJWT ijwt_)
@@ -30,17 +30,21 @@ namespace JWT_BASICS.Controllers
         public ResponseAuthentication loginwithoutclaims(string userId, string password)
         {
             ResponseAuthentication response ;
+            User user = null;
             try
             {
-                if (this.AuthenticateUser(userId, password))
-                {                    
+                user = this.AuthenticateUser(userId, password);
+                if (user != null)
+                {   
+                    Dictionary<string,object> administrative_claims = new Dictionary<string,object>();
+                    administrative_claims.Add("Admin", "true");
+                    //administrative_claims.Add(user.rol, true);
                     response = new ResponseAuthentication()
                     {
-                        Token = ijwt_.GenerateToken(),
+                        Token = ijwt_.GenerateToken(administrative_claims),
                         HttpStatusCode = ((int)HttpStatusCode.OK),
                         HttpStatusTitle = HttpStatusCode.OK.ToString()
-                    }; 
-                    Console.WriteLine("paso");
+                    };                     
                 }
                 else
                 {
@@ -49,8 +53,7 @@ namespace JWT_BASICS.Controllers
                         Token = "",
                         HttpStatusCode = ((int)HttpStatusCode.Unauthorized),
                         HttpStatusTitle = HttpStatusCode.Unauthorized.ToString()
-                    };
-                    Console.WriteLine("no paso");
+                    };                    
                 }
             }
             catch (Exception ex)
@@ -67,18 +70,44 @@ namespace JWT_BASICS.Controllers
 
         [AllowAnonymous]
         [HttpPost("loginwithclaims")]
-        public ActionResult<string> loginwithclaims(string userId, string password, Dictionary<string, object> claims)
+        public ResponseAuthentication loginwithclaims(string userId, string password, Dictionary<string, object> claims)
         {
-
-            if (this.AuthenticateUser(userId, password))
+            ResponseAuthentication response;
+            User user = null;
+            try
             {
-                claims.Add("Admin",true);                    
-                return Ok(ijwt_.GenerateToken(claims));
+                user = this.AuthenticateUser(userId, password);
+                if (user != null)
+                {
+                    //claims.Add(user.rol,true);
+                    claims.Add("Admin", false);
+                    response = new ResponseAuthentication()
+                    {
+                        Token = ijwt_.GenerateToken(claims),
+                        HttpStatusCode = ((int)HttpStatusCode.OK),
+                        HttpStatusTitle = HttpStatusCode.OK.ToString()
+                    };
+                }
+                else
+                {
+                    response = new ResponseAuthentication()
+                    {
+                        Token = "",
+                        HttpStatusCode = ((int)HttpStatusCode.Unauthorized),
+                        HttpStatusTitle = HttpStatusCode.Unauthorized.ToString()
+                    };
+                }
             }
-            else
+            catch(Exception ex)
             {
-                return BadRequest();
+                response = new ResponseAuthentication()
+                {
+                    Token="",
+                    HttpStatusCode= ((int)HttpStatusCode.BadRequest),
+                    HttpStatusTitle= HttpStatusCode.BadRequest.ToString()
+                };
             }
+            return response;
         }
 
         [Authorize]
@@ -95,14 +124,12 @@ namespace JWT_BASICS.Controllers
             return Ok("Metodo publico solo para administradores!");
         }
 
-        private bool AuthenticateUser(string userId, string password)
+        private User AuthenticateUser(string userId, string password)
         {
             var usr = this.UsersList.FirstOrDefault(usr => usr.UserId == userId && usr.Password == password);
             if(usr != null)
-                return true;
-            return false;
+                return usr;
+            return null;
         }
-
-
     }
 }

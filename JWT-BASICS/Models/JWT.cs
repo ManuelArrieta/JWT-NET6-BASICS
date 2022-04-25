@@ -34,7 +34,7 @@ namespace JWT_BASICS.Models
             // Creamos el token de seguridad y lo retornamos
             var token = new JwtSecurityToken(
                 claims: null,
-                expires: DateTime.Now.AddSeconds(30),
+                expires: DateTime.Now.AddMinutes(5),
                 //issuer: _config["Jwt:Issuer"],
                 //audience: _config["Jwt:Audience"],
                 signingCredentials: credentials
@@ -69,7 +69,7 @@ namespace JWT_BASICS.Models
             {
                 token = new JwtSecurityToken(
                 claims: claimsToken,
-                expires: DateTime.Now.AddSeconds(30),
+                expires: DateTime.Now.AddMinutes(5),
                 //issuer: _config["Jwt:Issuer"], 
                 //audience: _config["Jwt:Audience"],
                 signingCredentials: credentials
@@ -79,7 +79,7 @@ namespace JWT_BASICS.Models
             {
                 token = new JwtSecurityToken(
                 claims: null,
-                expires: DateTime.Now.AddSeconds(30),
+                expires: DateTime.Now.AddMinutes(5),
                 //issuer: _config["Jwt:Issuer"],
                 //audience: _config["Jwt:Audience"],
                 signingCredentials: credentials

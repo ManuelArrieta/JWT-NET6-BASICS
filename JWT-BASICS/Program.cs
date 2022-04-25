@@ -29,7 +29,7 @@ builder.Services.AddHttpContextAccessor()
                 .AddAuthorization(
                     opciones => 
                     {
-                        opciones.AddPolicy("Admin", politica => politica.RequireClaim("Admin"));
+                        opciones.AddPolicy("Admin", politica => politica.RequireClaim("Admin","true"));
                     }
                 )
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -78,7 +78,7 @@ builder.Services.AddSwaggerGen(c =>
                 },
                 new string[] {}
             }
-        });
+        });  
 });
 
 var app = builder.Build();

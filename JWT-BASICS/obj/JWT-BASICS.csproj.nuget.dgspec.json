@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Manuel.Arrieta\\Desktop\\JWT-NET6-BASICS\\JWT-BASICS\\JWT-BASICS.csproj": {}
+    "C:\\Users\\Jose.Arrieta\\Desktop\\JWT-NET6-BASICS\\JWT-BASICS\\JWT-BASICS.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Manuel.Arrieta\\Desktop\\JWT-NET6-BASICS\\JWT-BASICS\\JWT-BASICS.csproj": {
+    "C:\\Users\\Jose.Arrieta\\Desktop\\JWT-NET6-BASICS\\JWT-BASICS\\JWT-BASICS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Manuel.Arrieta\\Desktop\\JWT-NET6-BASICS\\JWT-BASICS\\JWT-BASICS.csproj",
+        "projectUniqueName": "C:\\Users\\Jose.Arrieta\\Desktop\\JWT-NET6-BASICS\\JWT-BASICS\\JWT-BASICS.csproj",
         "projectName": "JWT-BASICS",
-        "projectPath": "C:\\Users\\Manuel.Arrieta\\Desktop\\JWT-NET6-BASICS\\JWT-BASICS\\JWT-BASICS.csproj",
-        "packagesPath": "C:\\Users\\Manuel.Arrieta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Manuel.Arrieta\\Desktop\\JWT-NET6-BASICS\\JWT-BASICS\\obj\\",
+        "projectPath": "C:\\Users\\Jose.Arrieta\\Desktop\\JWT-NET6-BASICS\\JWT-BASICS\\JWT-BASICS.csproj",
+        "packagesPath": "C:\\Users\\Jose.Arrieta\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Jose.Arrieta\\Desktop\\JWT-NET6-BASICS\\JWT-BASICS\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Manuel.Arrieta\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Jose.Arrieta\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -71,7 +75,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
